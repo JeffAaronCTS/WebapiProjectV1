@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using System.Linq;
-
+using System.Security.Claims;
 using System.Text;
 
 using System.Text.Json;
@@ -55,16 +55,26 @@ namespace WebapiProject.Controllers
 
         }
 
-        [HttpGet("user-order-details/{userId}")]
-
-        public IActionResult GetUserOrderDetails(int userId)
-
+        [HttpGet("user-order-details")]
+        public IActionResult GetUserOrderDetails()
         {
+            try
+            {
+                // Get the user ID from the logged-in user
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Unauthorized("User not logged in.");
+                }
 
-            var report = _repo.GetUserOrderDetails(userId);
-
-            return Ok(report);
-
+                // Fetch the user order details using the user ID
+                var report = _repo.GetUserOrderDetails(int.Parse(userId));
+                return Ok(report);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         [HttpGet("stock-level")]
@@ -125,7 +135,19 @@ namespace WebapiProject.Controllers
             return Ok(report);
 
         }
-
+        [HttpGet("order-history")]
+        public IActionResult GetOrderHistoryReport()
+        {
+            try
+            {
+                var report = _repo.GetOrderHistoryReport();
+                return Ok(report);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 
 }

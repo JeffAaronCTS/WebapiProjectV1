@@ -61,5 +61,34 @@ namespace WebapiProject.Repository
 
             db.Database.ExecuteSqlRaw("EXEC CancelOrder @p0", orderId);
         }
+        public List<GetOrderedProductDetails> GetOrderedProductDetails()
+
+        {
+
+            var orderedProductDetails = db.GetOrderedProductDetails.FromSqlRaw("EXEC GetOrderedProductDetails").ToList();
+
+            return orderedProductDetails.Select(opd => new GetOrderedProductDetails
+
+            {
+
+                OrderId = opd.OrderId,
+
+                ProductId = opd.ProductId,
+
+                Status = opd.Status,
+
+                ProductName = opd.ProductName,
+
+                Description = opd.Description,
+
+                UnitPrice = opd.UnitPrice,
+
+                OrderedQuantity = opd.OrderedQuantity,
+
+                TotalPrice = opd.TotalPrice
+
+            }).ToList();
+
+        }
     }
 }

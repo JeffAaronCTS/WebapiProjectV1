@@ -19,10 +19,10 @@ namespace WebapiProject.Repository
                 throw new System.Exception("Supplier cannot be null.");
             }
 
-            db.Database.ExecuteSqlRaw(
-                "EXEC AddSupplier @Name = {0}, @Phone = {1}, @Email = {2}",
-                supplier.SupplierName, supplier.Phone, supplier.Email
-            );
+            db.Database.ExecuteSqlRaw("EXEC AddSupplier @Id = {0}, @Name = {1}, @Phone = {2}, @Email = {3}", supplier.SupplierId, supplier.SupplierName, supplier.Phone,
+    supplier.Email
+);
+
         }
 
         public void UpdateSupplier(Supplier supplier)

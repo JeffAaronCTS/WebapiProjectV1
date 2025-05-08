@@ -7,7 +7,6 @@ namespace WebapiProject.Models
     public class Supplier
     {
         [Key]
-        [JsonIgnore]
         public int SupplierId { get; set; } // Auto-generated ID
 
         [Required(ErrorMessage = "Supplier name is required.")]

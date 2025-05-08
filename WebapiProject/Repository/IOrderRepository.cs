@@ -9,5 +9,7 @@ namespace WebapiProject.Repository
         List<Order> GetAllOrders();
         Order GetOrderById(int orderId);
         void CancelOrder(int orderId);
+
+        List<GetOrderedProductDetails> GetOrderedProductDetails();
     }
 }

@@ -17,8 +17,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddSwaggerGen(c =>
 
 {
-
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "EcomWebAPIServer2", Version = "v1" });
+     
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Inventory Management System", Version = "v1" });
 
     // Define the security scheme
 
@@ -105,17 +105,26 @@ builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// **Add CORS services here:**
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyCorsPolicy",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000") 
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    //app.UseSwagger();
-    //app.UseSwaggerUI();
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
@@ -127,10 +136,15 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseCors("MyCorsPolicy");
+
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllers();         //executable endpoint
 
 app.Run();
+
+
+

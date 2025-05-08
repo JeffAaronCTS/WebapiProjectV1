@@ -9,5 +9,9 @@ namespace WebapiProject.Repository
 
         User GetUserById(int Id);
         bool ValidateUserCredentials(string username, string password);
+
+        void UpdateUserDetail(UpdateUserDetail dto);
+
+        void PasswordReset(PasswordReset dto);
     }
 }

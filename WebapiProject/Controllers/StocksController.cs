@@ -62,7 +62,6 @@ namespace WebapiProject.Controllers
             }
         }
 
-        // New endpoint to discard all stock
         [HttpPost("DiscardAllStock")]
         public IActionResult DiscardAllStock(string productId)
         {
@@ -77,21 +76,17 @@ namespace WebapiProject.Controllers
             }
         }
 
-        [Authorize(Roles = "User,Admin")]
+        //[Authorize(Roles = "User,Admin")]
         [HttpGet("OutOfStock")]
         public IActionResult GetOutOfStockProducts()
         {
             try
             {
                 var outOfStockProducts = _stockRepository.GetOutOfStockProducts();
-                return Ok(outOfStockProducts);
+                return Ok(outOfStockProducts); 
             }
             catch (System.Exception ex)
             {
-                if (ex.Message == "No out-of-stock products found.")
-                {
-                    return NotFound(ex.Message);
-                }
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }

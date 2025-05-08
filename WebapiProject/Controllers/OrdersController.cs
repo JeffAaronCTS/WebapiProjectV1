@@ -27,7 +27,7 @@ namespace WebapiProject.Controllers
         {
             _orderRepository = orderRepository;
         }
-        [Authorize(Roles = "User")]
+       // [Authorize(Roles = "User")]
         [HttpPost]
         public IActionResult PlaceOrder([FromBody] Order order)
         {
@@ -105,6 +105,39 @@ namespace WebapiProject.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        [HttpGet("details")]
+
+        public IActionResult GetOrderedProductDetails()
+
+        {
+
+            try
+
+            {
+
+                var orderedProductDetails = _orderRepository.GetOrderedProductDetails();
+
+                if (orderedProductDetails == null || !orderedProductDetails.Any())
+
+                {
+
+                    return NotFound("No ordered product details found.");
+
+                }
+
+                return Ok(orderedProductDetails);
+
+            }
+
+            catch (System.Exception ex)
+
+            {
+
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+
+            }
+
         }
     }
 }

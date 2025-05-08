@@ -4,8 +4,11 @@
     {
         public string ProductId { get; set; }
         public string ProductName { get; set; }
-        public int QuantitySold { get; set; }
+
+        public string Category { get; set; }
+        public int TotalQuantitySold { get; set; }
+
+
         public decimal TotalSalesAmount { get; set; }
-        public DateTime SalesDate { get; set; }
     }
 }

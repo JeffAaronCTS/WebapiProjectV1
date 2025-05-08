@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebapiProject.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebapiProject.Repository
 {
@@ -48,15 +50,10 @@ namespace WebapiProject.Repository
             );
         }
 
-        public List<StockDto> GetOutOfStockProducts() // New method implementation
+        public List<StockDto> GetOutOfStockProducts()
         {
             var outOfStockProducts = db.Set<StockDto>().FromSqlRaw("EXEC GetOutOfStockProducts").ToList();
-            if (outOfStockProducts == null || !outOfStockProducts.Any())
-            {
-                throw new System.Exception("No out-of-stock products found.");
-            }
-
-            return outOfStockProducts;
+            return outOfStockProducts ?? new List<StockDto>(); // Return empty list if null
         }
     }
 }

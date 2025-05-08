@@ -26,7 +26,6 @@ namespace WebapiProject.Authentication
             var tokenKey = Encoding.ASCII.GetBytes(key);
 
             // 3. Create JWTdescriptor
-            // 3. Create JWTdescriptor IN AUTH.CS
 
             var tokenDescriptor = new SecurityTokenDescriptor
 

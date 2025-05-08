@@ -22,9 +22,8 @@ namespace WebapiProject.Models
         [Range(1, int.MaxValue, ErrorMessage = "Ordered quantity must be at least 1.")]
         public int OrderedQuantity { get; set; } // Quantity ordered
         [JsonIgnore]
-        [Required(ErrorMessage = "Status is required.")]
         [StringLength(50, ErrorMessage = "Status cannot be longer than 50 characters.")]
-        public string Status { get; set; } // Order status
+        public string Status { get; set; } = "Placed";// Order status
         [JsonIgnore]
         [Required]
         public DateTime OrderDate { get; set; } // Auto-generated order date

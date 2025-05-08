@@ -7,7 +7,7 @@ namespace WebapiProject.Models
     public class User
     {
         [Key]
-        [JsonIgnore]
+        
         public int UserId { get; set; } // Auto-generated ID
 
         [Required(ErrorMessage = "Name is required.")]
@@ -37,5 +37,13 @@ namespace WebapiProject.Models
         [StringLength(200, ErrorMessage = "Address cannot be longer than 200 characters.")]
         public string Address { get; set; }
        public string Role { get; set; }
+
+        [Required(ErrorMessage = "Security question is required.")]
+        [StringLength(200, ErrorMessage = "Security question cannot be longer than 200 characters.")]
+        public string SecurityQuestion { get; set; }
+
+        [Required(ErrorMessage = "Security answer is required.")]
+        [StringLength(200, ErrorMessage = "Security answer cannot be longer than 200 characters.")]
+        public string SecurityAnswer { get; set; }
     }
 }
